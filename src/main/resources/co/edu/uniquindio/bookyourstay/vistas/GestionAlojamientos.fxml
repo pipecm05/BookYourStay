@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="20">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Nuevo alojamiento" fx:id="btnNuevo"/>
+        <Button text="Refrescar" fx:id="btnRefrescar"/>
+    </HBox>
+
+    <TableView fx:id="tablaAlojamientos">
+        <columns>
+            <TableColumn text="ID" fx:id="colId"/>
+            <TableColumn text="Nombre" fx:id="colNombre"/>
+            <TableColumn text="Ciudad" fx:id="colCiudad"/>
+            <TableColumn text="Tipo" fx:id="colTipo"/>
+            <TableColumn text="Precio" fx:id="colPrecio"/>
+            <TableColumn text="Acciones" fx:id="colAcciones"/>
+        </columns>
+    </TableView>
+</VBox>

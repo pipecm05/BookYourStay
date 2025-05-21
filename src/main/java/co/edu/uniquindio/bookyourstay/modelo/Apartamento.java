@@ -1,20 +1,125 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
-public class Apartamento extends Alojamiento {
-    private double costoAseo;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.List;
 
-    public Apartamento(String nombre, String ciudad, String descripcion,
-                       String imagen, double precioNoche, int capacidad, double costoAseo) {
-        super(nombre, ciudad, descripcion, imagen, precioNoche, capacidad);
-        this.costoAseo = costoAseo;
+@Getter
+@Setter
+public class Apartamento extends Alojamiento {
+    private static final float COSTO_MANTENIMIENTO = 30000; // Costo adicional por mantenimiento
+    private static final float DEPOSITO_SEGURIDAD = 100000; // Depósito reembolsable
+    private int numeroHabitaciones;
+    private int numeroBanos;
+    private boolean tieneBalcon;
+    private boolean permiteMascotas;
+    private float area; // metros cuadrados
+    private String normasConvivencia;
+
+    @Override
+    public float calcularCostoTotal(int numNoches) {
+        if (numNoches <= 0) {
+            throw new IllegalArgumentException("El número de noches debe ser positivo");
+        }
+        return calcularCostoBase(numNoches) + COSTO_MANTENIMIENTO + DEPOSITO_SEGURIDAD;
+    }
+
+    /**
+     * Calcula el costo de limpieza adicional basado en el área del apartamento
+     * @return Costo de limpieza
+     */
+    public float calcularCostoLimpieza() {
+        return area * 500; // $500 por m²
+    }
+
+    /**
+     * Verifica si el apartamento cumple con requerimientos específicos
+     * @param requiereBalcon Indica si se requiere balcón
+     * @param aceptaMascotas Indica si se necesitan permitir mascotas
+     * @return true si cumple con los requerimientos
+     */
+    public boolean cumpleRequisitos(boolean requiereBalcon, boolean aceptaMascotas) {
+        if (requiereBalcon && !tieneBalcon) {
+            return false;
+        }
+        if (aceptaMascotas && !permiteMascotas) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Genera un reporte detallado del apartamento
+     * @return String con la información detallada
+     */
+    public String generarReporte() {
+        return String.format(
+                "Apartamento: %s\n" +
+                        "Ubicación: %s\n" +
+                        "Habitaciones: %d\n" +
+                        "Baños: %d\n" +
+                        "Área: %.2f m²\n" +
+                        "Balcón: %s\n" +
+                        "Mascotas: %s\n" +
+                        "Precio base por noche: $%,.2f\n" +
+                        "Costo mantenimiento: $%,.2f\n" +
+                        "Depósito seguridad: $%,.2f\n" +
+                        "Normas de convivencia: %s\n" +
+                        "Servicios incluidos: %s\n" +
+                        "Calificación promedio: %.1f/5",
+                getNombre(),
+                getCiudad(),
+                numeroHabitaciones,
+                numeroBanos,
+                area,
+                tieneBalcon ? "Sí" : "No",
+                permiteMascotas ? "Permitidas" : "No permitidas",
+                getPrecioNoche(),
+                COSTO_MANTENIMIENTO,
+                DEPOSITO_SEGURIDAD,
+                normasConvivencia,
+                String.join(", ", getServicios()),
+                getCalificacionPromedio()
+        );
+    }
+
+    /**
+     * Aplica normas de convivencia específicas para apartamentos
+     * @param normas Lista de normas a aplicar
+     */
+    public void aplicarNormasConvivencia(List<String> normas) {
+        if (normas == null || normas.isEmpty()) {
+            this.normasConvivencia = "Normas estándar de convivencia";
+        } else {
+            this.normasConvivencia = String.join("\n- ", normas);
+        }
     }
 
     @Override
-    public double calcularCostoTotal(int numNoches) {
-        return (getPrecioNoche() * numNoches) + costoAseo;
+    public void validar() {
+        super.validar(); // Validaciones básicas de Alojamiento
+
+        if (numeroHabitaciones <= 0) {
+            throw new IllegalArgumentException("El número de habitaciones debe ser positivo");
+        }
+        if (numeroBanos <= 0) {
+            throw new IllegalArgumentException("El número de baños debe ser positivo");
+        }
+        if (area <= 0) {
+            throw new IllegalArgumentException("El área debe ser positiva");
+        }
     }
 
-    // Getters y Setters
-    public double getCostoAseo() { return costoAseo; }
-    public void setCostoAseo(double costoAseo) { this.costoAseo = costoAseo; }
+    @Override
+    public String toString() {
+        return String.format(
+                "%s - %s (Apartamento) %d hab. %d baños %.1f m² $%,.2f/noche",
+                getNombre(),
+                getCiudad(),
+                numeroHabitaciones,
+                numeroBanos,
+                area,
+                getPrecioNoche()
+        );
+    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox styleClass="header">
+            <Text text="BookYourStay - Cliente" styleClass="titulo"/>
+            <Button text="Cerrar sesión" fx:id="btnCerrarSesion" styleClass="cerrar-sesion"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox styleClass="menu-lateral">
+            <Button text="Buscar alojamientos" fx:id="btnBuscarAlojamientos" styleClass="menu-button"/>
+            <Button text="Mis reservas" fx:id="btnMisReservas" styleClass="menu-button"/>
+            <Button text="Mi billetera" fx:id="btnBilletera" styleClass="menu-button"/>
+            <Button text="Mi perfil" fx:id="btnPerfil" styleClass="menu-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contenidoPrincipal"/>
+    </center>
+</BorderPane>

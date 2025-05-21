@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      alignment="CENTER" spacing="20" style="-fx-background-color: #f5f5f5;"
+      prefWidth="400" prefHeight="500">
+
+    <ImageView fitWidth="150" fitHeight="150">
+        <image>
+            <Image url="@/images/logo.png"/>
+        </image>
+    </ImageView>
+
+    <Label text="Iniciar Sesión" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+
+    <VBox spacing="10" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;"
+          alignment="CENTER_LEFT">
+        <Label text="Correo electrónico" style="-fx-font-weight: bold;"/>
+        <TextField promptText="Ingrese su email"/>
+
+        <Label text="Contraseña" style="-fx-font-weight: bold; -fx-padding: 10 0 0 0;"/>
+        <PasswordField promptText="Ingrese su contraseña"/>
+
+        <HBox spacing="10" style="-fx-padding: 20 0 0 0;" alignment="CENTER_RIGHT">
+            <Button text="Registrarse" style="-fx-base: #7f8c8d; -fx-text-fill: white;"/>
+            <Button text="Ingresar" style="-fx-base: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </HBox>
+
+        <Hyperlink text="¿Olvidaste tu contraseña?" style="-fx-padding: 10 0 0 0;"/>
+    </VBox>
+</VBox>

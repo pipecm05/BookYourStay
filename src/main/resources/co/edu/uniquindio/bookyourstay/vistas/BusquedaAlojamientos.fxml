@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="20">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Ciudad:"/>
+        <ComboBox fx:id="cbCiudad"/>
+
+        <Label text="Tipo:"/>
+        <ComboBox fx:id="cbTipoAlojamiento"/>
+
+        <Label text="Precio máximo:"/>
+        <TextField fx:id="txtPrecioMax" styleClass="precio-input"/>
+
+        <Button text="Buscar" fx:id="btnBuscar"/>
+    </HBox>
+
+    <TableView fx:id="tablaAlojamientos" styleClass="tabla-alojamientos">
+        <columns>
+            <TableColumn text="Nombre" fx:id="colNombre"/>
+            <TableColumn text="Tipo" fx:id="colTipo"/>
+            <TableColumn text="Precio/noche" fx:id="colPrecio"/>
+            <TableColumn text="Capacidad" fx:id="colCapacidad"/>
+            <TableColumn text="Acciones" fx:id="colAcciones"/>
+        </columns>
+    </TableView>
+</VBox>
