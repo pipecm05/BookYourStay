@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.bookyourstay.controladores.InicioController">
+    <children>
+        <VBox alignment="CENTER" spacing="15" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+            <Label text="Bienvenido a BookYourStay" style="-fx-font-size: 24px;" />
+            <Label fx:id="usuarioLabel" text="Usuario: -"/>
+            <Button text="Ir al menú principal" onAction="#irMenuPrincipal" />
+        </VBox>
+    </children>
+</AnchorPane>

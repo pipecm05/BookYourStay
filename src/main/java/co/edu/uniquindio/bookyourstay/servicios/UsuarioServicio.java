@@ -2,19 +2,43 @@ package co.edu.uniquindio.bookyourstay.servicios;
 
 import co.edu.uniquindio.bookyourstay.modelo.Cliente;
 import co.edu.uniquindio.bookyourstay.modelo.Usuario;
-import co.edu.uniquindio.bookyourstay.modelo.enums.TipoUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCuenta;
 import co.edu.uniquindio.bookyourstay.repositorios.UsuarioRepositorio;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 public class UsuarioServicio {
+
+    private static UsuarioServicio instancia;
+
     private final UsuarioRepositorio usuarioRepositorio;
 
-    public UsuarioServicio(UsuarioRepositorio usuarioRepositorio) {
-        this.usuarioRepositorio = usuarioRepositorio;
+    // Constructor privado para singleton
+    private UsuarioServicio() {
+        this.usuarioRepositorio = new UsuarioRepositorio();
+    }
+    public Usuario registrarUsuario(Usuario usuario) throws IllegalArgumentException {
+        validarDatosUsuario(usuario);
+        verificarExistenciaPrevia(usuario.getEmail(), usuario.getCedula());
+
+        usuario.setActivo(true);
+
+        // Si no tiene tipoCuenta, le asignamos REGULAR por defecto
+        if (usuario.getTipoCuenta() == null) {
+            usuario.setTipoCuenta(TipoCuenta.REGULAR);
+        }
+
+        usuarioRepositorio.guardarUsuario(usuario);
+        return usuario;
+    }
+    // Método para obtener la instancia única
+    public static UsuarioServicio obtenerInstancia() {
+        if (instancia == null) {
+            instancia = new UsuarioServicio();
+        }
+        return instancia;
     }
 
     public Cliente registrarCliente(Cliente cliente) throws IllegalArgumentException {
@@ -22,7 +46,7 @@ public class UsuarioServicio {
         verificarExistenciaPrevia(cliente.getEmail(), cliente.getCedula());
 
         cliente.setActivo(true);
-        cliente.setTipoUsuario(TipoUsuario.REGULAR);
+        cliente.setTipoCuenta(TipoCuenta.REGULAR);
         usuarioRepositorio.guardarUsuario(cliente);
         return cliente;
     }
@@ -69,7 +93,7 @@ public class UsuarioServicio {
         return usuarioRepositorio.listarTodos();
     }
 
-    public List<Usuario> listarUsuariosPorTipo(TipoUsuario tipo) {
+    public List<Usuario> listarUsuariosPorTipo(TipoCuenta tipo) {
         return usuarioRepositorio.buscarPorTipo(tipo);
     }
 

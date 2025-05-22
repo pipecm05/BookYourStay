@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.CrearReseñaController"
+      spacing="10" padding="15">
+
+    <Label text="Crear Nueva Reseña" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfCliente" promptText="Nombre cliente" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Alojamiento:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfAlojamiento" promptText="Nombre alojamiento" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Calificación (1-5):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Spinner fx:id="spinnerCalificacion" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Comentario:"
+               GridPane.rowIndex="3"
+               GridPane.columnIndex="0"
+               GridPane.valignment="TOP"/>
+        <TextArea fx:id="taComentario"
+                  promptText="Escribe tu comentario (mínimo 20 caracteres)"
+                  prefRowCount="4"
+                  GridPane.rowIndex="3"
+                  GridPane.columnIndex="1"/>
+
+        <CheckBox fx:id="cbRecomendar"
+                  text="Recomendaría"
+                  GridPane.rowIndex="4"
+                  GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Button text="Agregar Reseña" onAction="#agregarReseña"/>
+    <Label fx:id="labelMensaje" style="-fx-text-fill: red;"/>
+</VBox>

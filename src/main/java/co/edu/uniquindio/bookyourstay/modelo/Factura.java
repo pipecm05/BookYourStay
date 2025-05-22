@@ -1,6 +1,6 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
-import co.edu.uniquindio.bookyourstay.modelo.enums.TipoUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCuenta;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -63,7 +63,7 @@ public class Factura {
         }
 
         // Descuento por cliente premium (ejemplo)
-        if (reserva.getCliente().getTipoUsuario() == TipoUsuario.PREMIUM) {
+        if (reserva.getCliente().getTipoCuenta() == TipoCuenta.PREMIUM) {
             descuento += reserva.getSubtotal() * 0.05f; // 5% adicional
         }
 

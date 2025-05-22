@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.MensajeAlertaController"
+      alignment="CENTER" spacing="15" padding="20" style="-fx-background-color: #f0f0f0;">
+
+    <Label fx:id="lblMensaje" text="Mensaje de alerta" wrapText="true" style="-fx-font-size: 14px;"/>
+
+    <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrar" prefWidth="80"/>
+
+</VBox>

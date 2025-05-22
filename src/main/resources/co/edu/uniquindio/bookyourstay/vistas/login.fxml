@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.bookyourstay.controladores.LoginController">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+        <Label text="Iniciar Sesión" style="-fx-font-size: 24px;"/>
+        <TextField fx:id="correoField" promptText="Correo electrónico"/>
+        <PasswordField fx:id="contrasenaField" promptText="Contraseña"/>
+        <Button text="Iniciar Sesión" onAction="#iniciarSesion"/>
+        <Hyperlink text="¿No tienes cuenta? Regístrate aquí" onAction="#irARegistro"/>
+        <Label fx:id="mensajeLabel" textFill="red"/>
+    </VBox>
+</AnchorPane>

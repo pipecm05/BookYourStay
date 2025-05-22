@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.DetalleOfertaController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <Label fx:id="lblTitulo" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Título de la oferta"/>
+
+    <ImageView fx:id="imagenAlojamiento" fitWidth="300" fitHeight="200"/>
+
+    <Label fx:id="lblDescripcion" wrapText="true" text="Descripción del alojamiento"/>
+    <Label fx:id="lblPrecio" text="Precio por noche: $0.00"/>
+    <Label fx:id="lblDisponibilidad" text="Disponibilidad"/>
+    <Label fx:id="lblTipoAlojamiento" text="Tipo de Alojamiento"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="btnReservar" text="Reservar" onAction="#reservarOferta"/>
+        <Button fx:id="btnVolver" text="Volver" onAction="#volver"/>
+    </HBox>
+</VBox>

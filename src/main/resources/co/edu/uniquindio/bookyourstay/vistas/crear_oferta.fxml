@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.CrearOfertaController"
+      spacing="15" alignment="CENTER" style="-fx-padding: 30;">
+
+    <Label text="Crear Nueva Oferta" style="-fx-font-size: 18px;"/>
+
+    <ComboBox fx:id="comboAlojamiento" promptText="Seleccione Alojamiento" prefWidth="300"/>
+
+    <HBox spacing="10">
+        <DatePicker fx:id="fechaInicio" promptText="Fecha Inicio"/>
+        <DatePicker fx:id="fechaFin" promptText="Fecha Fin"/>
+    </HBox>
+
+    <TextField fx:id="campoPrecio" promptText="Precio" prefWidth="300"/>
+
+    <ComboBox fx:id="comboTipoOferta" promptText="Tipo de Oferta" prefWidth="300"/>
+
+    <Button fx:id="btnCrearOferta" text="Crear Oferta" onAction="#crearOferta" prefWidth="150"/>
+</VBox>

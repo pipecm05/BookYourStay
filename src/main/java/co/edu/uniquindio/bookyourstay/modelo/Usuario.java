@@ -1,6 +1,7 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
-import co.edu.uniquindio.bookyourstay.modelo.enums.TipoUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.RolUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCuenta;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,15 +18,16 @@ public class Usuario {
     private String cedula;
     private LocalDate fechaRegistro;
     private boolean activo;
-    private TipoUsuario tipoUsuario;
+    private TipoCuenta tipoCuenta;
     private String direccion;
     private String fotoPerfilUrl;
+    private RolUsuario rol;
 
     public Usuario() {
         this.id = "USR-" + UUID.randomUUID().toString().substring(0, 8);
         this.fechaRegistro = LocalDate.now();
         this.activo = true;
-        this.tipoUsuario = TipoUsuario.REGULAR;
+        this.tipoCuenta = TipoCuenta.REGULAR;
     }
 
     /**
@@ -76,6 +78,7 @@ public class Usuario {
         this.contraseña = nuevaContraseña;
     }
 
+
     /**
      * Activa o desactiva la cuenta del usuario
      */
@@ -89,10 +92,20 @@ public class Usuario {
     public boolean puedeRealizarAccion() {
         return activo;
     }
-
+    public Usuario(String nombre,String cedula, String email, String contraseña, RolUsuario rol) {
+        this();
+        this.nombre = nombre;
+        this.email = email;
+        this.contraseña = contraseña;
+        this.rol = rol;
+        this.cedula = cedula;
+    }
     @Override
     public String toString() {
-        return String.format("%s (%s) - %s", nombre, email, tipoUsuario);
+        return String.format("%s (%s) - %s", nombre, email, tipoCuenta);
+    }
+    public RolUsuario getRol() {
+        return rol;
     }
 
     // Builder mejorado para Usuario

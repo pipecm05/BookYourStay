@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.RegistrarAlojamientoController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 30;">
+
+    <TextField fx:id="txtNombre" promptText="Nombre del Alojamiento" prefWidth="300"/>
+    <TextField fx:id="txtCiudad" promptText="Ciudad" prefWidth="300"/>
+    <TextField fx:id="txtDireccion" promptText="Dirección" prefWidth="300"/>
+    <TextField fx:id="txtCapacidad" promptText="Capacidad (personas)" prefWidth="300"/>
+
+    <ComboBox fx:id="cmbTipoAlojamiento" promptText="Tipo de Alojamiento" prefWidth="300"/>
+
+    <HBox spacing="10">
+        <Button fx:id="btnRegistrar" text="Registrar" onAction="#registrarAlojamiento" prefWidth="145"/>
+        <Button fx:id="btnCancelar" text="Cancelar" onAction="#cancelar" prefWidth="145"/>
+    </HBox>
+</VBox>

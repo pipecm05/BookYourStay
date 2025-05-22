@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.PropietarioInicioController"
+      spacing="15" alignment="CENTER"
+      style="-fx-padding: 30;">
+
+    <Button fx:id="btnRegistrarAlojamiento" text="Registrar Alojamiento" onAction="#registrarAlojamiento" prefWidth="200"/>
+    <Button fx:id="btnMisAlojamientos" text="Mis Alojamientos" onAction="#verMisAlojamientos" prefWidth="200"/>
+    <Button fx:id="btnCrearOferta" text="Crear Oferta" onAction="#crearOferta" prefWidth="200"/>
+    <Button fx:id="btnVerReservas" text="Ver Reservas" onAction="#verReservas" prefWidth="200"/>
+    <Button fx:id="btnCerrarSesion" text="Cerrar Sesión" onAction="#cerrarSesion" prefWidth="200"/>
+
+</VBox>

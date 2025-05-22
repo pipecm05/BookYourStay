@@ -1,7 +1,7 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
 import co.edu.uniquindio.bookyourstay.modelo.enums.EstadoReserva;
-import co.edu.uniquindio.bookyourstay.modelo.enums.TipoUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCuenta;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +18,7 @@ public class Cliente extends Usuario {
     private Billetera billetera;
     private List<Reserva> reservas;
     private List<Reseña> reseñas;
-    private TipoUsuario tipoUsuario;
+    private TipoCuenta tipoCuenta;
     private LocalDate fechaRegistro;
     private LocalDate fechaNacimiento;
     private boolean cuentaActiva;
@@ -28,7 +28,7 @@ public class Cliente extends Usuario {
         this.billetera = new Billetera();
         this.reservas = new ArrayList<>();
         this.reseñas = new ArrayList<>();
-        this.tipoUsuario = TipoUsuario.REGULAR;
+        this.tipoCuenta = TipoCuenta.REGULAR;
         this.fechaRegistro = LocalDate.now();
         this.cuentaActiva = true;
     }
@@ -212,7 +212,7 @@ public class Cliente extends Usuario {
                 .count();
 
         if (reseñasPositivas >= 5) {
-            this.tipoUsuario = TipoUsuario.PREMIUM;
+            this.tipoCuenta = TipoCuenta.PREMIUM;
         }
     }
 
@@ -284,7 +284,7 @@ public class Cliente extends Usuario {
         return String.format("Cliente: %s (%s) - %s - Registro: %s",
                 getNombre(),
                 getEmail(),
-                tipoUsuario,
+                tipoCuenta,
                 fechaRegistro);
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.VerReservasPropietarioController"
+            style="-fx-padding: 20;">
+
+    <center>
+        <TableView fx:id="tablaReservas" prefHeight="400" prefWidth="600">
+            <columns>
+                <TableColumn fx:id="colAlojamiento" text="Alojamiento" prefWidth="150"/>
+                <TableColumn fx:id="colCliente" text="Cliente" prefWidth="120"/>
+                <TableColumn fx:id="colFechaInicio" text="Fecha Inicio" prefWidth="100"/>
+                <TableColumn fx:id="colFechaFin" text="Fecha Fin" prefWidth="100"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

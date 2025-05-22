@@ -1,7 +1,7 @@
 package co.edu.uniquindio.bookyourstay.repositorios;
 
 import co.edu.uniquindio.bookyourstay.modelo.Usuario;
-import co.edu.uniquindio.bookyourstay.modelo.enums.TipoUsuario;
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCuenta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +65,9 @@ public class UsuarioRepositorio {
      * @param tipo Tipo de usuario (REGULAR, PREMIUM)
      * @return Lista de usuarios del tipo especificado
      */
-    public List<Usuario> buscarPorTipo(TipoUsuario tipo) {
+    public List<Usuario> buscarPorTipo(TipoCuenta tipo) {
         return usuarios.stream()
-                .filter(u -> u.getTipoUsuario() == tipo)
+                .filter(u -> u.getTipoCuenta() == tipo)
                 .collect(Collectors.toList());
     }
 
@@ -97,8 +97,8 @@ public class UsuarioRepositorio {
      * @throws IllegalArgumentException si el usuario no existe
      */
     public void actualizarUsuario(Usuario usuarioActualizado) {
-        Usuario existente = buscarPorEmail(usuarioActualizado.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        Usuario existente = buscarPorId(usuarioActualizado.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + usuarioActualizado.getId()));
 
         int index = usuarios.indexOf(existente);
         usuarios.set(index, usuarioActualizado);

@@ -125,7 +125,19 @@ public class Reseña {
                 verificada ? "Respuesta del administrador (" + fechaRespuesta + "):\n" + respuestaAdministrador : ""
         );
     }
+    public Reseña(String nombreCliente, String nombreAlojamiento, String comentario, int calificacion) {
+        this();
+        this.calificacion = calificacion;
+        this.comentario = comentario;
 
+        // Crear cliente con nombre
+        this.cliente = new co.edu.uniquindio.bookyourstay.modelo.Cliente();
+        this.cliente.setNombre(nombreCliente);
+
+        // Crear alojamiento concreto (ejemplo Casa)
+        this.alojamiento = new co.edu.uniquindio.bookyourstay.modelo.Casa();
+        this.alojamiento.setNombre(nombreAlojamiento);
+    }
     @Override
     public String toString() {
         return String.format("Reseña de %s - %d/5 - %s",
