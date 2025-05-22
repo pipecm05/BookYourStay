@@ -5,16 +5,41 @@ import co.edu.uniquindio.bookyourstay.modelo.enums.EstadoReserva;
 import co.edu.uniquindio.bookyourstay.modelo.enums.TipoCalificacion;
 import co.edu.uniquindio.bookyourstay.repositorios.ReseñaRepositorio;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class ReseñaServicio {
+
+    private static ReseñaServicio instancia;
+
     private final ReseñaRepositorio reseñaRepositorio;
 
-    public ReseñaServicio(ReseñaRepositorio reseñaRepositorio) {
-        this.reseñaRepositorio = reseñaRepositorio;
+    // ObservableList para UI (JavaFX)
+    private final ObservableList<Reseña> listaReseñas;
+
+    // Constructor privado para singleton
+    private ReseñaServicio() {
+        this.reseñaRepositorio = new ReseñaRepositorio();
+        // Inicializar la lista observable con todas las reseñas actuales
+        this.listaReseñas = FXCollections.observableArrayList(reseñaRepositorio.listarTodas());
+    }
+
+    // Método para obtener la instancia singleton
+    public static synchronized ReseñaServicio obtenerInstancia() {
+        if (instancia == null) {
+            instancia = new ReseñaServicio();
+        }
+        return instancia;
+    }
+
+    // Método para obtener la lista observable
+    public ObservableList<Reseña> getListaReseñas() {
+        return listaReseñas;
     }
 
     public Reseña crearReseña(Cliente cliente, Alojamiento alojamiento, Reserva reserva,
@@ -28,9 +53,9 @@ public class ReseñaServicio {
         Reseña reseña = construirReseña(cliente, alojamiento, reserva, calificacion, comentario, tipo, recomendaria);
 
         reseñaRepositorio.guardar(reseña);
+        listaReseñas.add(reseña); // Actualizar lista observable
         return reseña;
     }
-
 
     public Reseña verificarReseña(String reseñaId, String respuestaAdmin) throws NoSuchElementException {
         Reseña reseña = obtenerReseña(reseñaId);
@@ -38,6 +63,9 @@ public class ReseñaServicio {
         reseña.setRespuestaAdministrador(respuestaAdmin);
         reseña.setFechaRespuesta(LocalDateTime.now());
         reseñaRepositorio.actualizarReseña(reseña);
+        // Actualizar lista observable: quitar y volver a agregar para refrescar binding si aplica
+        listaReseñas.removeIf(r -> r.getId().equals(reseñaId));
+        listaReseñas.add(reseña);
         return reseña;
     }
 

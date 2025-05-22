@@ -3,14 +3,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-
+<?import javafx.geometry.Pos?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.BuscarAlojamientosController">
     <children>
         <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
             <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Buscar Alojamientos" style="-fx-font-size: 20px;"/>
+            <Label text="Buscar Alojamientos" style="-fx-font-size: 20px;" />
             <TextField fx:id="ciudadField" promptText="Ciudad" />
             <DatePicker fx:id="fechaInicioPicker" promptText="Fecha inicio" />
             <DatePicker fx:id="fechaFinPicker" promptText="Fecha fin" />
@@ -23,7 +24,13 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Button text="Buscar" onAction="#buscar" />
+
+            <!-- HBox para los botones Buscar y Regresar -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Buscar" onAction="#buscar" />
+                <Button text="Regresar" onAction="#regresar" />
+            </HBox>
+
             <ListView fx:id="resultadosList" prefHeight="200" />
         </VBox>
     </children>

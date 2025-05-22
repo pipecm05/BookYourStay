@@ -68,7 +68,11 @@ public class AlojamientoRepositorio {
         return alojamientos.stream()
                 .anyMatch(a -> a.getId().equals(id));
     }
-
+    public Optional<Alojamiento> buscarPorNombre(String nombre) {
+        return alojamientos.stream()
+                .filter(a -> a.getNombre().equalsIgnoreCase(nombre))
+                .findFirst();
+    }
     public ObservableList<Alojamiento> buscarPorRangoPrecio(float precioMin, float precioMax) {
         return alojamientos.stream()
                 .filter(a -> a.getPrecioNoche() >= precioMin && a.getPrecioNoche() <= precioMax)

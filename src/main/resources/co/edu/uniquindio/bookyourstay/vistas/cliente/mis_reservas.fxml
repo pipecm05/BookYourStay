@@ -8,7 +8,11 @@
       fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.MisReservasController"
       alignment="CENTER" spacing="15" style="-fx-padding: 20;">
 
-    <Label text="Mis Reservas" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <!-- Barra superior con botón regresar y título -->
+    <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="600">
+        <Button text="Regresar" onAction="#regresar"/>
+        <Label text="Mis Reservas" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" />
+    </HBox>
 
     <TableView fx:id="tablaReservas" prefHeight="300" prefWidth="600">
         <columns>

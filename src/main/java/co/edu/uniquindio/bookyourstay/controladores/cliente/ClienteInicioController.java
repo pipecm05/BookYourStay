@@ -14,7 +14,7 @@ public class ClienteInicioController {
 
     @FXML
     private void buscarAlojamientos(ActionEvent event) {
-        cargarVista("/co/edu/uniquindio/bookyourstay/vistas/cliente/buscar_alojamientos.fxml", "Buscar Alojamientos", event);
+        cargarVista("/co/edu/uniquindio/bookyourstay/vistas/cliente/buscar_alojamiento.fxml", "Buscar Alojamientos", event);
     }
 
     @FXML

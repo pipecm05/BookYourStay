@@ -29,4 +29,10 @@
     <Label text="Detalle de la factura:" style="-fx-font-weight: bold;" />
     <TextArea fx:id="txtDetalleFactura" editable="false" prefWidth="400" prefHeight="200"/>
 
+    <Button fx:id="btnVolver"
+            text="Volver a Inicio"
+            onAction="#volverAInicio"
+            prefWidth="150"
+            style="-fx-font-size: 14px;"/>
+
 </VBox>

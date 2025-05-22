@@ -26,7 +26,9 @@ public class AlojamientoServicio {
         }
         return instancia;
     }
-
+    public Alojamiento buscarAlojamientoPorNombre(String nombre) {
+        return alojamientoRepositorio.buscarPorNombre(nombre).orElse(null);
+    }
     public ObservableList<Alojamiento> listarTodos() {
         return FXCollections.observableArrayList(alojamientoRepositorio.listarTodos());
     }
