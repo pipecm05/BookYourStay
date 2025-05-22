@@ -12,5 +12,6 @@
     <Button fx:id="btnGestionUsuarios" text="Gestión de Usuarios" onAction="#gestionarUsuarios" prefWidth="200"/>
     <Button fx:id="btnEstadisticas" text="Estadísticas" onAction="#verEstadisticas" prefWidth="200"/>
     <Button fx:id="btnGestionReseñas" text="Gestión de Reseñas" onAction="#gestionarReseñas" prefWidth="200"/>
+    <Button text="Cerrar Sesión" onAction="#cerrarSesion" />
 
 </VBox>

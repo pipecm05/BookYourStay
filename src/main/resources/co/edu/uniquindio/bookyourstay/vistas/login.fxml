@@ -12,6 +12,7 @@
         <PasswordField fx:id="contrasenaField" promptText="Contraseña"/>
         <Button text="Iniciar Sesión" onAction="#iniciarSesion"/>
         <Hyperlink text="¿No tienes cuenta? Regístrate aquí" onAction="#irARegistro"/>
+        <Button fx:id="btnMenuPrincipal" text="Menú Principal" onAction="#irAMenuPrincipal" />
         <Label fx:id="mensajeLabel" textFill="red"/>
     </VBox>
 </AnchorPane>

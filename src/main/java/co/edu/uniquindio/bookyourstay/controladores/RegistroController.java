@@ -2,12 +2,15 @@ package co.edu.uniquindio.bookyourstay.controladores;
 
 import co.edu.uniquindio.bookyourstay.modelo.enums.RolUsuario;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import co.edu.uniquindio.bookyourstay.modelo.Usuario;
 import co.edu.uniquindio.bookyourstay.servicios.UsuarioServicio;
+
+import java.io.IOException;
 
 public class RegistroController {
 
@@ -85,6 +88,20 @@ public class RegistroController {
         } catch (Exception e) {
             e.printStackTrace();
             mensajeLabel.setText("No se pudo cargar la vista de inicio de sesión.");
+        }
+    }
+    @FXML
+    private void irAMenuPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/menu_principal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) correoField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menú Principal");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mensajeLabel.setText("No se pudo abrir el menú principal.");
         }
     }
 }

@@ -36,6 +36,9 @@
 
     <Button text="Registrar" GridPane.rowIndex="6" GridPane.columnIndex="1" onAction="#registrarUsuario"/>
 
-    <Label fx:id="mensajeLabel" GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-text-fill: red;"/>
+    <!-- Botón Volver, debajo del botón Registrar -->
+    <Button text="Volver" GridPane.rowIndex="7" GridPane.columnIndex="1" onAction="#irAMenuPrincipal"/>
+
+    <Label fx:id="mensajeLabel" GridPane.rowIndex="8" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-text-fill: red;"/>
 
 </GridPane>

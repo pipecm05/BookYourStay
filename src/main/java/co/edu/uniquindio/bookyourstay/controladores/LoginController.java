@@ -1,5 +1,6 @@
 package co.edu.uniquindio.bookyourstay.controladores;
 
+import co.edu.uniquindio.bookyourstay.modelo.enums.RolUsuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
@@ -8,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import co.edu.uniquindio.bookyourstay.modelo.Usuario;
 import co.edu.uniquindio.bookyourstay.servicios.UsuarioServicio;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -28,43 +31,51 @@ public class LoginController {
         String correo = correoField.getText();
         String contrasena = contrasenaField.getText();
 
-        Usuario usuario = null;
         try {
-            usuario = usuarioServicio.iniciarSesion(correo, contrasena);
-        } catch (Exception e) {
-            mensajeLabel.setText(e.getMessage());
-            return;
-        }
+            Usuario usuario = usuarioServicio.autenticarUsuario(correo, contrasena);
 
-        if (usuario == null) {
-            mensajeLabel.setText("Correo o contraseña incorrectos");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            switch (usuario.getRol()) {
-                case CLIENTE:
-                    loader.setLocation(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/cliente_inicio.fxml"));
-                    break;
-                case PROPIETARIO:
-                    loader.setLocation(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/propietaraio_inicio.fxml"));
-                    break;
-                case ADMINISTRADOR:
-                    loader.setLocation(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/admin_inicio.fxml"));
-                    break;
-                default:
-                    mensajeLabel.setText("Rol no reconocido");
-                    return;
+            if (usuario == null) {
+                mensajeLabel.setText("Credenciales incorrectas.");
+                return;
             }
 
-            Parent root = loader.load();
-            Stage stage = (Stage) correoField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            RolUsuario rol = usuario.getRol();
+
+            if (rol == null) {
+                mensajeLabel.setText("El usuario no tiene rol asignado.");
+                return;
+            }
+
+            // Limpiamos mensaje antes de cargar la vista
+            mensajeLabel.setText("");
+
+            switch (rol) {
+                case CLIENTE -> cargarVista("/co/edu/uniquindio/bookyourstay/vistas/cliente/cliente_inicio.fxml", "Inicio Cliente");
+                case PROPIETARIO -> cargarVista("/co/edu/uniquindio/bookyourstay/vistas/propietario/propietario_inicio.fxml", "Inicio Propietario");
+                case ADMINISTRADOR -> cargarVista("/co/edu/uniquindio/bookyourstay/vistas/administrador/admin_inicio.fxml", "Inicio Administrador");
+                default -> mensajeLabel.setText("Rol no reconocido.");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            mensajeLabel.setText("Error al cargar la interfaz");
+            mensajeLabel.setText("Error al iniciar sesión.");
+        }
+    }
+
+    private void cargarVista(String rutaFXML, String tituloVentana) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            Scene scene = new Scene(loader.load());
+
+            // Obtengo el Stage actual desde cualquier nodo (en este caso correoField)
+            Stage stage = (Stage) correoField.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.setTitle(tituloVentana);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mensajeLabel.setText("No se pudo cargar la vista.");
         }
     }
 
@@ -79,6 +90,20 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
             mensajeLabel.setText("No se pudo abrir el registro.");
+        }
+    }
+    @FXML
+    private void irAMenuPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/menu_principal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) correoField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menú Principal");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mensajeLabel.setText("No se pudo abrir el menú principal.");
         }
     }
 }

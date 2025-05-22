@@ -13,6 +13,8 @@
             <Button text="Mis Reservas" onAction="#verMisReservas" />
             <Button text="Crear Reseña" onAction="#crearReseña" />
             <Button text="Ver Factura" onAction="#verFactura" />
+            <Button text="Cerrar Sesión" onAction="#cerrarSesion" />
+
         </VBox>
     </children>
 </AnchorPane>

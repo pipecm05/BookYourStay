@@ -40,7 +40,9 @@ public class UsuarioServicio {
         }
         return instancia;
     }
-
+    public Usuario autenticarUsuario(String email, String contraseña) {
+        return iniciarSesion(email, contraseña);
+    }
     public Cliente registrarCliente(Cliente cliente) throws IllegalArgumentException {
         validarDatosCliente(cliente);
         verificarExistenciaPrevia(cliente.getEmail(), cliente.getCedula());
