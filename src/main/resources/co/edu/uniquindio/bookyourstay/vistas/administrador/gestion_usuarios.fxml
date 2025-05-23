@@ -1,27 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<?import javafx.scene.layout.HBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="co.edu.uniquindio.bookyourstay.controladores.administrador.GestionUsuariosController"
-      spacing="10" padding="10">
+      spacing="10"
+      style="-fx-background-color: #f4f4f4;">
 
-    <TableView fx:id="tablaUsuarios" prefHeight="300" prefWidth="600">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Barra de búsqueda -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Buscar:"/>
+        <TextField fx:id="txtBusqueda" promptText="Nombre, correo o rol..."
+                   HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Tabla de usuarios -->
+    <TableView fx:id="tablaUsuarios" prefHeight="400">
         <columns>
-            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="200"/>
-            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="200"/>
-            <TableColumn fx:id="colRol" text="Rol" prefWidth="100"/>
-            <TableColumn fx:id="colActivo" text="Activo" prefWidth="80"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="200">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nombre"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="200">
+                <cellValueFactory>
+                    <PropertyValueFactory property="correo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colRol" text="Rol" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="rol"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colActivo" text="Estado" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="activo"/>
+                </cellValueFactory>
+            </TableColumn>
         </columns>
     </TableView>
 
-    <HBox spacing="10">
-        <Button fx:id="btnSuspender" text="Suspender Usuario" onAction="#suspenderUsuario" />
-        <Button fx:id="btnEliminar" text="Eliminar Usuario" onAction="#eliminarUsuario" />
+    <!-- Barra de botones -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnEditar" text="Editar" onAction="#editarUsuario"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button fx:id="btnSuspender" text="Suspender/Activar" onAction="#suspenderUsuario"
+                style="-fx-background-color: #FFC107; -fx-text-fill: black;"/>
+        <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarUsuario"
+                style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+        <Button text="Volver" onAction="#volverAInicio"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
     </HBox>
-
 </VBox>

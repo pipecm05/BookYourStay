@@ -147,7 +147,26 @@ public class ReseñaServicio {
             throw new IllegalStateException("Ya existe una reseña para esta reserva");
         }
     }
+    /**
+     * Elimina una reseña por su ID
+     * @param id ID de la reseña a eliminar
+     * @return true si se eliminó correctamente, false si no se encontró
+     */
+    public boolean eliminarReseña(String id) {
+        try {
+            // 1. Eliminar del repositorio
+            boolean eliminado = reseñaRepositorio.eliminar(id);
 
+            if (eliminado) {
+                // 2. Actualizar la lista observable
+                listaReseñas.removeIf(r -> r.getId().equals(id));
+            }
+            return eliminado;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     private String generarId() {
         return "RESE-" + System.currentTimeMillis();
     }

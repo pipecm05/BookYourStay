@@ -144,6 +144,12 @@ public class Reseña {
         );
         this.alojamiento.setNombre(nombreAlojamiento);
     }
+    public String getNombreCliente() {
+        return cliente != null ? cliente.getNombre() : "";
+    }
+    public String getNombreAlojamiento() {
+        return alojamiento != null ? alojamiento.getNombre() : "";
+    }
     @Override
     public String toString() {
         return String.format("Reseña de %s - %d/5 - %s",

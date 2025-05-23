@@ -203,4 +203,7 @@ public class ReseñaRepositorio {
         }
         reseñas.add(reseña);
     }
+    public boolean eliminar(String id) {
+        return reseñas.removeIf(r -> r.getId().equals(id));
+    }
 }

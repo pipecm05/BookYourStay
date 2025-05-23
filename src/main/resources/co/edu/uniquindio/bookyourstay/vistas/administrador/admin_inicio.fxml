@@ -3,15 +3,76 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="co.edu.uniquindio.bookyourstay.controladores.administrador.AdminInicioController"
-      spacing="15" alignment="CENTER" style="-fx-padding: 40;">
+      spacing="20"
+      alignment="CENTER"
+      style="-fx-background-color: #f5f5f5;">
 
-    <Button fx:id="btnGestionUsuarios" text="Gestión de Usuarios" onAction="#gestionarUsuarios" prefWidth="200"/>
-    <Button fx:id="btnEstadisticas" text="Estadísticas" onAction="#verEstadisticas" prefWidth="200"/>
-    <Button fx:id="btnGestionReseñas" text="Gestión de Reseñas" onAction="#gestionarReseñas" prefWidth="200"/>
-    <Button text="Cerrar Sesión" onAction="#cerrarSesion" />
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <!-- Título de la aplicación -->
+    <Label text="Panel de Administración"
+           style="-fx-font-weight: bold; -fx-font-size: 24; -fx-text-fill: #2c3e50;">
+        <VBox.margin>
+            <Insets bottom="30"/>
+        </VBox.margin>
+    </Label>
+
+    <!-- Botón de Gestión de Usuarios -->
+    <Button fx:id="btnGestionUsuarios"
+            text="Gestión de Usuarios"
+            onAction="#gestionarUsuarios"
+            style="-fx-background-color: #3498db; -fx-text-fill: white;"
+            prefWidth="250"
+            prefHeight="40">
+        <font>
+            <Font name="System Bold" size="14"/>
+        </font>
+    </Button>
+
+    <!-- Botón de Estadísticas -->
+    <Button fx:id="btnEstadisticas"
+            text="Estadísticas"
+            onAction="#verEstadisticas"
+            style="-fx-background-color: #2ecc71; -fx-text-fill: white;"
+            prefWidth="250"
+            prefHeight="40">
+        <font>
+            <Font name="System Bold" size="14"/>
+        </font>
+    </Button>
+
+    <!-- Botón de Gestión de Reseñas -->
+    <Button fx:id="btnGestionReseñas"
+            text="Gestión de Reseñas"
+            onAction="#gestionarReseñas"
+            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
+            prefWidth="250"
+            prefHeight="40">
+        <font>
+            <Font name="System Bold" size="14"/>
+        </font>
+    </Button>
+
+    <!-- Botón de Cerrar Sesión -->
+    <Button text="Cerrar Sesión"
+            onAction="#cerrarSesion"
+            style="-fx-background-color: #7f8c8d; -fx-text-fill: white;"
+            prefWidth="250"
+            prefHeight="40">
+        <VBox.margin>
+            <Insets top="50"/>
+        </VBox.margin>
+        <font>
+            <Font name="System Bold" size="14"/>
+        </font>
+    </Button>
 
 </VBox>
