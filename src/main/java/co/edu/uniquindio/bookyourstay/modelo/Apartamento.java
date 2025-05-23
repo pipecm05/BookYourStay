@@ -1,5 +1,7 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoAlojamiento;
+import co.edu.uniquindio.bookyourstay.singleton.UsuarioActual;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -31,7 +33,18 @@ public class Apartamento extends Alojamiento {
     public float calcularCostoLimpieza() {
         return area * 500; // $500 por m²
     }
-
+    public Apartamento(String nombre, String ciudad, String descripcion,
+                       int capacidadMax, float precioNoche) {
+        super(
+                nombre,
+                ciudad,
+                UsuarioActual.getInstancia().getUsuario(), // Propietario
+                descripcion,
+                TipoAlojamiento.APARTAMENTO, // Tipo específico
+                precioNoche,
+                capacidadMax
+        );
+    }
     /**
      * Verifica si el apartamento cumple con requerimientos específicos
      * @param requiereBalcon Indica si se requiere balcón

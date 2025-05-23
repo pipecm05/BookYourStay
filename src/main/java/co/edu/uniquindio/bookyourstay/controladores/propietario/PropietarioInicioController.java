@@ -44,7 +44,17 @@ public class PropietarioInicioController {
 
     @FXML
     private void verMisAlojamientos(ActionEvent event) {
-        // Aquí irá el cambio de escena para mis alojamientos
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/bookyourstay/vistas/propietario/mis_alojamientos.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Mis Alojamientos");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -54,7 +64,15 @@ public class PropietarioInicioController {
 
     @FXML
     private void verReservas(ActionEvent event) {
-        // Aquí irá el cambio de escena para ver reservas
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/bookyourstay/vistas/propietario/ver_reservas.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Mis Reservas");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

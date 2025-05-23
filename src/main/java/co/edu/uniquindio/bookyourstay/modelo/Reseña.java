@@ -135,7 +135,13 @@ public class Reseña {
         this.cliente.setNombre(nombreCliente);
 
         // Crear alojamiento concreto (ejemplo Casa)
-        this.alojamiento = new co.edu.uniquindio.bookyourstay.modelo.Casa();
+        this.alojamiento = new co.edu.uniquindio.bookyourstay.modelo.Casa(
+                nombreAlojamiento,  // nombre (String)
+                "Ciudad no especificada",  // ciudad (String)
+                "Sin descripción",  // descripcion (String)
+                2,  // capacidadMax (int)
+                0.0f  // precioNoche (float)
+        );
         this.alojamiento.setNombre(nombreAlojamiento);
     }
     @Override

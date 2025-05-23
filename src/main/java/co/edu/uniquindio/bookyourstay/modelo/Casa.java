@@ -1,5 +1,7 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoAlojamiento;
+import co.edu.uniquindio.bookyourstay.singleton.UsuarioActual;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -24,11 +26,27 @@ public class Casa extends Alojamiento {
     @Override
     public float calcularCostoTotal(int numNoches) {
         validarNumeroNoches(numNoches);
-        float costoBase = getPrecioNoche() * numNoches;
+        float costoBase = getPrecioNoche().get() * numNoches;
         float costoServicios = calcularCostoServiciosAdicionales();
         return costoBase + COSTO_ASEO + costoServicios + DEPOSITO_SEGURIDAD;
     }
-
+    public Casa(String nombre, String ciudad, String descripcion,
+                int capacidadMax, float precioNoche) {
+        super(
+                nombre,
+                ciudad,
+                UsuarioActual.getInstancia().getUsuario(), // Propietario (requerido)
+                descripcion,
+                TipoAlojamiento.CASA, // Tipo fijo para casas
+                precioNoche,
+                capacidadMax
+        );
+        // Inicializa atributos por defecto
+        this.numeroHabitaciones = 1;
+        this.numeroBanos = 1;
+        this.areaTerreno = 100; // m²
+        this.areaConstruida = 80; // m²
+    }
     /**
      * Calcula costos adicionales por servicios especiales
      */
@@ -89,7 +107,7 @@ public class Casa extends Alojamiento {
     public boolean cumpleRequisitos(boolean requierePiscina, boolean requiereEventos, int huespedes) {
         if (requierePiscina && !tienePiscina) return false;
         if (requiereEventos && !permiteEventos) return false;
-        return huespedes <= getCapacidadMax();
+        return huespedes <= getCapacidadMax().get();
     }
 
     @Override

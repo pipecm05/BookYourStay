@@ -75,7 +75,7 @@ public class AlojamientoRepositorio {
     }
     public ObservableList<Alojamiento> buscarPorRangoPrecio(float precioMin, float precioMax) {
         return alojamientos.stream()
-                .filter(a -> a.getPrecioNoche() >= precioMin && a.getPrecioNoche() <= precioMax)
+                .filter(a -> a.getPrecioNoche().get() >= precioMin && a.getPrecioNoche().get() <= precioMax)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 

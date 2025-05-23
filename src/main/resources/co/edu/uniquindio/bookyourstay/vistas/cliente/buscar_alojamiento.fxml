@@ -1,37 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ListView?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.BuscarAlojamientosController">
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Pos?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
+    <!-- Campos de búsqueda -->
+    <HBox spacing="10">
+        <Label text="Ciudad:"/>
+        <TextField fx:id="ciudadField"/>
+        <Label text="Tipo:"/>
+        <ComboBox fx:id="tipoAlojamientoCombo"/>
+        <Button text="Buscar" onAction="#buscar"/>
+    </HBox>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.bookyourstay.controladores.cliente.BuscarAlojamientosController">
-    <children>
-        <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Buscar Alojamientos" style="-fx-font-size: 20px;" />
-            <TextField fx:id="ciudadField" promptText="Ciudad" />
-            <DatePicker fx:id="fechaInicioPicker" promptText="Fecha inicio" />
-            <DatePicker fx:id="fechaFinPicker" promptText="Fecha fin" />
-            <ComboBox fx:id="tipoAlojamientoCombo" promptText="Tipo de alojamiento">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Casa" />
-                        <String fx:value="Apartamento" />
-                        <String fx:value="Hotel" />
-                    </FXCollections>
-                </items>
-            </ComboBox>
+    <!-- Campos para reserva -->
+    <HBox spacing="10">
+        <Label text="Fecha Inicio:"/>
+        <DatePicker fx:id="fechaInicioPicker"/>
+        <Label text="Fecha Fin:"/>
+        <DatePicker fx:id="fechaFinPicker"/>
+        <Label text="Huéspedes:"/>
+        <Spinner fx:id="numHuespedesSpinner" minWidth="80"/>
+    </HBox>
 
-            <!-- HBox para los botones Buscar y Regresar -->
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button text="Buscar" onAction="#buscar" />
-                <Button text="Regresar" onAction="#regresar" />
-            </HBox>
-
-            <ListView fx:id="resultadosList" prefHeight="200" />
-        </VBox>
-    </children>
-</AnchorPane>
+    <!-- Resultados y botones -->
+    <ListView fx:id="resultadosList" prefHeight="200"/>
+    <HBox spacing="10">
+        <Button text="Reservar" fx:id="btnReservar" onAction="#reservar"/>
+        <Button text="Regresar" onAction="#regresar"/>
+    </HBox>
+</VBox>

@@ -26,7 +26,7 @@ public class EstadisticaServicio {
         try {
             return alojamientoRepositorio.listarTodos().stream()
                     .collect(Collectors.groupingBy(
-                            Alojamiento::getCiudad,
+                            a -> a.getCiudad(),
                             Collectors.averagingDouble(this::calcularOcupacionAlojamiento)
                     ));
         } catch (Exception e) {

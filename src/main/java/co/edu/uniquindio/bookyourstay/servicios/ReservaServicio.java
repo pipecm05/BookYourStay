@@ -5,18 +5,26 @@ import co.edu.uniquindio.bookyourstay.modelo.enums.EstadoReserva;
 import co.edu.uniquindio.bookyourstay.repositorios.ReservaRepositorio;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class ReservaServicio {
+    private List<Reserva> todasLasReservas;
     private final ReservaRepositorio reservaRepositorio;
+    private static ReservaServicio instancia;
 
     public ReservaServicio(ReservaRepositorio reservaRepositorio) {
         this.reservaRepositorio = reservaRepositorio;
     }
-
+    public static synchronized ReservaServicio obtenerInstancia() {
+        if (instancia == null) {
+            instancia = new ReservaServicio(new ReservaRepositorio());
+        }
+        return instancia;
+    }
     public Reserva crearReserva(Cliente cliente, Alojamiento alojamiento, LocalDate fechaInicio,
                                 LocalDate fechaFin, int numHuespedes) throws IllegalArgumentException, IllegalStateException {
 
@@ -85,14 +93,14 @@ public class ReservaServicio {
         float total = alojamiento.calcularCostoTotal(numNoches);
 
         return Reserva.builder()
-                .id(generarId())
-                .cliente(cliente)
-                .alojamiento(alojamiento)
-                .fechaInicio(fechaInicio)
-                .fechaFin(fechaFin)
-                .numHuespedes(numHuespedes)
-                .estado(EstadoReserva.CONFIRMADA)
-                .total(total)
+                .conId(generarId())  // Cambiado a conId
+                .conCliente(cliente)
+                .conAlojamiento(alojamiento)
+                .conFechaInicio(fechaInicio)
+                .conFechaFin(fechaFin)
+                .conNumHuespedes(numHuespedes)
+                .conEstado(EstadoReserva.CONFIRMADA)
+                .conTotal(total)
                 .build();
     }
 
@@ -106,8 +114,8 @@ public class ReservaServicio {
     }
 
     private void validarCapacidad(Alojamiento alojamiento, int numHuespedes) throws IllegalArgumentException {
-        if (numHuespedes > alojamiento.getCapacidadMax()) {
-            throw new IllegalArgumentException("Capacidad máxima excedida: " + alojamiento.getCapacidadMax());
+        if (numHuespedes > alojamiento.getCapacidadMax().get()) {
+            throw new IllegalArgumentException("Capacidad máxima excedida: " + alojamiento.getCapacidadMax().get());
         }
     }
 
@@ -136,7 +144,16 @@ public class ReservaServicio {
             throw new IllegalStateException("Solo se pueden cancelar con más de 48 horas de anticipación");
         }
     }
+    public boolean estaDisponible(Alojamiento alojamiento, LocalDate fechaInicio, LocalDate fechaFin) {
+        if (alojamiento == null || fechaInicio == null || fechaFin == null) {
+            throw new IllegalArgumentException("Parámetros no pueden ser nulos");
+        }
 
+        return todasLasReservas.stream()
+                .filter(r -> r.getAlojamiento() != null &&
+                        r.getAlojamiento().getId().equals(alojamiento.getId()))
+                .noneMatch(reserva -> reserva.haySolapamiento(fechaInicio, fechaFin));
+    }
     private String generarId() {
         return "RES-" + System.currentTimeMillis();
     }

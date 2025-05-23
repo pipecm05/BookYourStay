@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.VerReservasPropietarioController"
-            style="-fx-padding: 20;">
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.bookyourstay.controladores.propietario.VerReservasPropietarioController"
+      spacing="10" style="-fx-padding: 20; -fx-background-color: #f5f5f5;">
 
-    <center>
-        <TableView fx:id="tablaReservas" prefHeight="400" prefWidth="600">
-            <columns>
-                <TableColumn fx:id="colAlojamiento" text="Alojamiento" prefWidth="150"/>
-                <TableColumn fx:id="colCliente" text="Cliente" prefWidth="120"/>
-                <TableColumn fx:id="colFechaInicio" text="Fecha Inicio" prefWidth="100"/>
-                <TableColumn fx:id="colFechaFin" text="Fecha Fin" prefWidth="100"/>
-                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
-            </columns>
-        </TableView>
-    </center>
-</BorderPane>
+    <Label text="Mis Reservas" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="tablaReservas" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="colAlojamiento" text="Alojamiento" prefWidth="150"/>
+            <TableColumn fx:id="colCliente" text="Cliente" prefWidth="150"/>
+            <TableColumn fx:id="colFechaInicio" text="Fecha Inicio" prefWidth="100"/>
+            <TableColumn fx:id="colFechaFin" text="Fecha Fin" prefWidth="100"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="btnActualizar" text="Actualizar" onAction="#actualizarReservas"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Button fx:id="btnCancelarReserva" text="Cancelar Reserva" onAction="#cancelarReserva"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button fx:id="btnVolver" text="Volver" onAction="#volver"
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

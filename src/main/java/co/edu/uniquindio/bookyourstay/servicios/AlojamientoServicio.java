@@ -4,9 +4,11 @@ import co.edu.uniquindio.bookyourstay.factory.AlojamientoFactoryProvider;
 import co.edu.uniquindio.bookyourstay.modelo.Alojamiento;
 import co.edu.uniquindio.bookyourstay.modelo.enums.TipoAlojamiento;
 import co.edu.uniquindio.bookyourstay.repositorios.AlojamientoRepositorio;
+import co.edu.uniquindio.bookyourstay.singleton.GestorAlojamientos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -32,7 +34,15 @@ public class AlojamientoServicio {
     public ObservableList<Alojamiento> listarTodos() {
         return FXCollections.observableArrayList(alojamientoRepositorio.listarTodos());
     }
-
+    public List<Alojamiento> buscarDisponibles(String ciudad, LocalDate fechaInicio, LocalDate fechaFin,
+                                               int huespedes, TipoAlojamiento tipo, ReservaServicio reservaServicio) {
+        return GestorAlojamientos.getInstancia().getAlojamientos().stream()
+                .filter(a -> a.getCiudad().equalsIgnoreCase(ciudad)) // Usar .get() antes de equalsIgnoreCase
+                .filter(a -> tipo == null || a.getTipo().get() == tipo)
+                .filter(a -> a.getCapacidadMax().get() >= huespedes)
+                .filter(a -> reservaServicio.estaDisponible(a, fechaInicio, fechaFin))
+                .collect(Collectors.toList());
+    }
     public Alojamiento crearAlojamiento(TipoAlojamiento tipo, String nombre, String ciudad,
                                         String descripcion, float precioNoche, int capacidadMax,
                                         List<String> servicios) {
@@ -50,17 +60,44 @@ public class AlojamientoServicio {
     }
 
     public Alojamiento actualizarAlojamiento(String id, Alojamiento nuevosDatos) {
-        validarDatosAlojamiento(nuevosDatos.getNombre(), nuevosDatos.getCiudad(),
-                nuevosDatos.getPrecioNoche(), nuevosDatos.getCapacidadMax());
+        // Validar que nuevosDatos no sea nulo
+        if (nuevosDatos == null) {
+            throw new IllegalArgumentException("Los nuevos datos no pueden ser nulos");
+        }
 
+        // Validar datos usando los valores de las propiedades
+        validarDatosAlojamiento(
+                nuevosDatos.getNombre(),
+                nuevosDatos.getCiudad(),
+                nuevosDatos.getPrecioNoche().get(),
+                nuevosDatos.getCapacidadMax().get()
+        );
+
+        // Obtener el alojamiento existente
         Alojamiento alojamiento = obtenerAlojamiento(id);
-        alojamiento.setNombre(nuevosDatos.getNombre());
-        alojamiento.setCiudad(nuevosDatos.getCiudad());
-        alojamiento.setDescripcion(nuevosDatos.getDescripcion());
-        alojamiento.setPrecioNoche(nuevosDatos.getPrecioNoche());
-        alojamiento.setCapacidadMax(nuevosDatos.getCapacidadMax());
-        alojamiento.setServicios(nuevosDatos.getServicios());
 
+        // Actualizar propiedades - usamos los setters de las propiedades
+        if (nuevosDatos.getServicios() != null) {
+            alojamiento.getServicios().setAll(nuevosDatos.getServicios());
+        }
+
+        if (nuevosDatos.getCiudad() != null) {
+            alojamiento.ciudadProperty().set(nuevosDatos.getCiudad());
+        }
+        if (nuevosDatos.getDescripcion() != null) {
+            alojamiento.descripcionProperty().set(nuevosDatos.getDescripcion());
+        }
+        if (nuevosDatos.getPrecioNoche() != null) {
+            alojamiento.getPrecioNoche().set(nuevosDatos.getPrecioNoche().get());
+        }
+        if (nuevosDatos.getCapacidadMax() != null) {
+            alojamiento.getCapacidadMax().set(nuevosDatos.getCapacidadMax().get());
+        }
+        if (nuevosDatos.getServicios() != null) {
+            alojamiento.getServicios().setAll(nuevosDatos.getServicios());
+        }
+
+        // Guardar cambios
         alojamientoRepositorio.actualizarAlojamiento(alojamiento);
         return alojamiento;
     }
@@ -97,14 +134,15 @@ public class AlojamientoServicio {
                 .collect(Collectors.toList()));
     }
 
+
     private String generarId() {
         return "ALO-" + System.currentTimeMillis();
     }
 
     private boolean existeAlojamiento(String nombre, String ciudad) {
         return alojamientoRepositorio.listarTodos().stream()
-                .anyMatch(a -> a.getNombre().equalsIgnoreCase(nombre) &&
-                        a.getCiudad().equalsIgnoreCase(ciudad));
+                .anyMatch(a -> a.getNombre().equalsIgnoreCase(nombre) && // Usar .get()
+                        a.getCiudad().equalsIgnoreCase(ciudad)); // Usar .get()
     }
 
     private void validarDatosAlojamiento(String nombre, String ciudad,

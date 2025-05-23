@@ -69,7 +69,7 @@ public class Cliente extends Usuario {
             throw new Exception("El alojamiento no está disponible para las fechas seleccionadas");
         }
 
-        if (numHuespedes > alojamiento.getCapacidadMax()) {
+        if (numHuespedes > alojamiento.getCapacidadMax().get()) {
             throw new Exception("Número de huéspedes excede la capacidad del alojamiento");
         }
 
@@ -82,15 +82,14 @@ public class Cliente extends Usuario {
         }
 
         Reserva reserva = Reserva.builder()
-                .id(UUID.randomUUID().toString())
-                .alojamiento(alojamiento)
-                .fechaInicio(fechaInicio)
-                .fechaFin(fechaFin)
-                .numHuespedes(numHuespedes)
-                .estado(EstadoReserva.CONFIRMADA)
-                .total(costoTotal)
+                .conId(UUID.randomUUID().toString())  // Usar conId en lugar de id
+                .conAlojamiento(alojamiento)
+                .conFechaInicio(fechaInicio)
+                .conFechaFin(fechaFin)
+                .conNumHuespedes(numHuespedes)
+                .conEstado(EstadoReserva.CONFIRMADA)
+                .conTotal(costoTotal)
                 .build();
-
         if (pagarReserva(costoTotal, "Reserva " + reserva.getId())) {
             agregarReserva(reserva);
             alojamiento.agregarReserva(reserva);

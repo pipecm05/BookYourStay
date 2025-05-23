@@ -29,60 +29,24 @@ public abstract class Alojamiento {
     private final FloatProperty calificacionPromedio = new SimpleFloatProperty();
     private final BooleanProperty disponible = new SimpleBooleanProperty(true);
 
+    // Nueva propiedad para el propietario (Usuario)
+    private final ObjectProperty<Usuario> propietario = new SimpleObjectProperty<>();
+
     // Métodos property() para JavaFX
-    public StringProperty idProperty() {
-        return id;
-    }
+    public StringProperty idProperty() { return id; }
+    public StringProperty nombreProperty() { return nombre; }
+    public StringProperty ciudadProperty() { return ciudad; }
+    public StringProperty descripcionProperty() { return descripcion; }
+    public ObjectProperty<TipoAlojamiento> tipoProperty() { return tipo; }
+    public FloatProperty precioNocheProperty() { return precioNoche; }
+    public IntegerProperty capacidadMaxProperty() { return capacidadMax; }
+    public ListProperty<String> serviciosProperty() { return servicios; }
+    public ListProperty<Reserva> reservasProperty() { return reservas; }
+    public ListProperty<Reseña> reseñasProperty() { return reseñas; }
+    public FloatProperty calificacionPromedioProperty() { return calificacionPromedio; }
+    public BooleanProperty disponibleProperty() { return disponible; }
+    public ObjectProperty<Usuario> propietarioProperty() { return propietario; }
 
-    public StringProperty nombreProperty() {
-        return nombre;
-    }
-
-    public StringProperty ciudadProperty() {
-        return ciudad;
-    }
-
-    public StringProperty descripcionProperty() {
-        return descripcion;
-    }
-
-    public ObjectProperty<TipoAlojamiento> tipoProperty() {
-        return tipo;
-    }
-
-    public FloatProperty precioNocheProperty() {
-        return precioNoche;
-    }
-
-    public IntegerProperty capacidadMaxProperty() {
-        return capacidadMax;
-    }
-
-    public ListProperty<String> serviciosProperty() {
-        return servicios;
-    }
-
-    public ListProperty<Reserva> reservasProperty() {
-        return reservas;
-    }
-
-    public ListProperty<Reseña> reseñasProperty() {
-        return reseñas;
-    }
-
-    public FloatProperty calificacionPromedioProperty() {
-        return calificacionPromedio;
-    }
-
-    public BooleanProperty disponibleProperty() {
-        return disponible;
-    }
-    public void setId(String id) {
-        this.id.set(id);
-    }
-    public void setServicios(List<String> servicios) {
-        this.servicios.set(FXCollections.observableArrayList(servicios));
-    }
     // Métodos abstractos
     public abstract float calcularCostoTotal(int numNoches);
 
@@ -113,10 +77,6 @@ public abstract class Alojamiento {
 
         reseñas.add(reseña);
         actualizarCalificacionPromedio();
-    }
-
-    public String getId() {
-        return id.get();
     }
 
     private void actualizarCalificacionPromedio() {
@@ -161,6 +121,9 @@ public abstract class Alojamiento {
         if (capacidadMax.get() <= 0) {
             throw new IllegalArgumentException("La capacidad máxima debe ser mayor a cero");
         }
+        if (propietario.get() == null) {
+            throw new IllegalArgumentException("El alojamiento debe tener un propietario asignado");
+        }
     }
 
     @Override
@@ -169,62 +132,72 @@ public abstract class Alojamiento {
                 nombre.get(), ciudad.get(), getClass().getSimpleName(), precioNoche.get());
     }
 
-    // Constructores adicionales si son necesarios
-    public Alojamiento(String nombre, String ciudad, String descripcion, TipoAlojamiento tipo,
-                       float precioNoche, int capacidadMax) {
+    // Constructores
+    public Alojamiento(String nombre, String ciudad, Usuario propietario, String descripcion,
+                       TipoAlojamiento tipo, float precioNoche, int capacidadMax) {
         this();
         this.nombre.set(nombre);
         this.ciudad.set(ciudad);
+        this.propietario.set(propietario);
         this.descripcion.set(descripcion);
         this.tipo.set(tipo);
         this.precioNoche.set(precioNoche);
         this.capacidadMax.set(capacidadMax);
         generarId();
     }
+
+    // Métodos adicionales para el propietario
+    public Usuario getPropietario() {
+        return propietario.get();
+    }
+
+    public void setPropietario(Usuario propietario) {
+        this.propietario.set(propietario);
+    }
+
+    public boolean esPropietario(Usuario usuario) {
+        return propietario.get() != null && propietario.get().equals(usuario);
+    }
+    public void setServicios(List<String> nuevosServicios) {
+        servicios.set(FXCollections.observableArrayList(nuevosServicios));
+    }
+    public String getId() {
+        return id.get();
+    }
+    public void setTipo(TipoAlojamiento tipo) {
+        this.tipo.set(tipo); // Usando la propiedad JavaFX
+    }
+    public String getNombre() {
+        return nombre.get(); // Devuelve el String, no el StringProperty
+    }
+
     public String getCiudad() {
         return ciudad.get();
+    }
+
+    public String getDescripcion() {
+        return descripcion.get();
+    }
+    public void setNombre(String nombre) {
+        this.nombre.set(nombre);
     }
 
     public void setCiudad(String ciudad) {
         this.ciudad.set(ciudad);
     }
-
-    public String getDescripcion() {
-        return descripcion.get();
+    public void setId(String id) {
+        this.id.set(id);
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion.set(descripcion);
     }
 
-    public TipoAlojamiento getTipo() {
-        return tipo.get();
-    }
-
-    public void setTipo(TipoAlojamiento tipo) {
-        this.tipo.set(tipo);
-    }
-
-    public float getPrecioNoche() {
-        return precioNoche.get();
-    }
-
     public void setPrecioNoche(float precioNoche) {
         this.precioNoche.set(precioNoche);
     }
 
-    public int getCapacidadMax() {
-        return capacidadMax.get();
-    }
-
     public void setCapacidadMax(int capacidadMax) {
         this.capacidadMax.set(capacidadMax);
-    }
-    public String getNombre() {
-        return nombre.get();
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre.set(nombre);
     }
 }

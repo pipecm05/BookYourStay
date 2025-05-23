@@ -1,6 +1,8 @@
 package co.edu.uniquindio.bookyourstay.modelo;
 
+import co.edu.uniquindio.bookyourstay.modelo.enums.TipoAlojamiento;
 import co.edu.uniquindio.bookyourstay.modelo.enums.TipoHabitacion;
+import co.edu.uniquindio.bookyourstay.singleton.UsuarioActual;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,9 +32,20 @@ public class Hotel extends Alojamiento {
     @Override
     public float calcularCostoTotal(int numNoches) {
         validarNumeroNoches(numNoches);
-        return getPrecioNoche() * numNoches;
+        return getPrecioNoche().get() * numNoches;
     }
-
+    public Hotel(String nombre, String ciudad, String descripcion,
+                 int capacidadMax, float precioNoche) {
+        super(
+                nombre,
+                ciudad,
+                UsuarioActual.getInstancia().getUsuario(), // Propietario
+                descripcion,
+                TipoAlojamiento.HOTEL, // Tipo específico
+                precioNoche,
+                capacidadMax
+        );
+    }
     /**
      * Agrega una nueva habitación al hotel
      */
